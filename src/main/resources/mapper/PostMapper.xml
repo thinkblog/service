@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.thinkmoon.blog.post.dao.PostDAO">
+    <resultMap id="IndexResultMap" type="cn.thinkmoon.blog.post.pojo.PostPO">
+        <id column="cid" property="cid"/>
+        <result column="title" property="title"/>
+        <result column="tag" property="tag"/>
+        <result column="category" property="category"/>
+        <result column="thumb" property="thumb"/>
+        <result column="desc" property="desc"/>
+        <result column="created" property="created"/>
+    </resultMap>
+    <select id="selectPage" resultMap="IndexResultMap">
+        SELECT
+        weblog_contents.cid,
+        title,
+        created,
+        views,
+        likes,
+        commentsNum,
+        GROUP_CONCAT( DISTINCT tag.`name` ) AS 'tag',
+        GROUP_CONCAT( DISTINCT weblog_category.`name` ) AS 'category',
+        thumb.str_value AS thumb,
+        `desc`.str_value AS `desc`
+        FROM
+        ( weblog_contents, weblog_relationships, weblog_category )
+        LEFT JOIN ( `weblog_fields` AS thumb ) ON ( thumb.NAME = 'thumb' AND weblog_contents.cid = thumb.cid )
+        LEFT JOIN ( `weblog_fields` AS `desc` ) ON ( `desc`.NAME = 'desc' AND weblog_contents.cid = `desc`.cid )
+        LEFT JOIN ( `weblog_tag` AS tag ) ON ( weblog_relationships.tid = tag.tid AND weblog_relationships.cid =
+        weblog_contents.cid)
+        WHERE
+        weblog_contents.type = "post"
+        AND weblog_category.mid = weblog_contents.category_id
+        <if test='keyword != ""'>
+            AND ( weblog_contents.title LIKE #{keyword} OR weblog_contents.text LIKE #{keyword})
+        </if>
+        <if test='mid != 0'>
+            AND weblog_contents.category_id = #{mid}
+        </if>
+        GROUP BY
+        weblog_contents.cid
+        ORDER BY
+        created DESC
+    </select>
+    <select id="getDetail" resultType="cn.thinkmoon.blog.post.pojo.PostPO">
+        SELECT
+        weblog_contents.*,
+        GROUP_CONCAT( DISTINCT weblog_tag.`name` ) AS 'tag',
+        weblog_category.`name` AS category
+        FROM
+        weblog_contents,
+        weblog_category,
+        weblog_tag,
+        weblog_relationships
+        WHERE
+        weblog_contents.`type` = "post"
+        AND weblog_contents.category_id = weblog_category.mid
+        AND weblog_relationships.cid = weblog_contents.cid
+        AND weblog_tag.tid = weblog_relationships.tid
+        AND weblog_contents.cid = #{cid}
+    </select>
+    <select id="getAboutPost" resultType="cn.thinkmoon.blog.post.pojo.PostPO">
+        SELECT
+        weblog_contents.*
+        FROM
+        weblog_options,weblog_contents
+        WHERE
+        weblog_options.`name` = 'aboutCid' and weblog_options.`value` = weblog_contents.cid
+    </select>
+    <insert id="insertPost" parameterType="cn.thinkmoon.blog.post.pojo.PostPO">
+        INSERT INTO weblog_contents (authorId,title,text,category_id,created,modified)
+        VALUES
+        (#{authorId},#{title},#{text},#{category_id},#{created},#{modified})
+    </insert>
+    <update id="updatePost" parameterType="cn.thinkmoon.blog.post.pojo.PostPO">
+        UPDATE weblog_contents
+        <set>
+            title = #{title},
+            text = #{text},
+            <if test="category_id != null">
+                category_id = #{category_id},
+            </if>
+            modified = #{modified},
+        </set>
+        WHERE
+        weblog_contents.cid = #{cid}
+    </update>
+</mapper>

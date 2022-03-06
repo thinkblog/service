@@ -1,0 +1,42 @@
+#mysql
+spring:
+  datasource:
+    url: 
+    username: 
+    password: 
+    hikari:
+      maxLifeTime: 30001
+  mail:
+    host: 
+    port: 
+    protocol: 
+    username: 
+    password: 
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  typeAliasesPackage: cn.thinkmoon.blog.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+server:
+  port: 9447
+  servlet:
+    context-path: /api
+
+token:
+  secret: 
+  issuer: 
+  expire: 
+
+logging:
+  level:
+    root: info
