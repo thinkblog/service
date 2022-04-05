@@ -40,3 +40,8 @@ token:
 logging:
   level:
     root: info
+
+qiniu:
+  accessKey:
+  secretKey:
+  bucket:
