@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.thinkmoon.blog.content.dao.UserDAO">
-    <select id="queryUserByAccount" resultType="cn.thinkmoon.blog.content.pojo.po.UserPO">
+<mapper namespace="cn.thinkmoon.blog.modules.content.dao.UserDAO">
+    <select id="queryUserByAccount" resultType="cn.thinkmoon.blog.modules.content.pojo.po.UserPO">
         SELECT
         *
         FROM
