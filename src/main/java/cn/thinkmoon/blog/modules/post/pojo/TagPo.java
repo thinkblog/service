@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class TagPo {
-    private int id;
+    private String tid;
 
     private String name;
 }

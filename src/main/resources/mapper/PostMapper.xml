@@ -7,11 +7,15 @@
         <result column="text" property="text"/>
         <result column="category" property="category"/>
         <result column="created" property="created"/>
+        <result column="views" property="views"/>
+        <result column="likes" property="likes"/>
+        <result column="comments" property="comments"/>
         <collection property="tag" ofType="cn.thinkmoon.blog.modules.post.pojo.TagPo" column="cid" select="selectTag">
-            <result column="tag_id" property="id"/>
-            <result column="tag" property="name"/>
+            <result column="tid" property="tid"/>
+            <result column="name" property="name"/>
         </collection>
-        <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO" column="cid" select="selectFields">
+        <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO" column="cid"
+                    select="selectFields">
             <result column="fields_name" property="name"/>
             <result column="fields_value" property="value"/>
         </collection>
@@ -19,7 +23,7 @@
     <select id="selectTag" resultType="cn.thinkmoon.blog.modules.post.pojo.TagPo">
         SELECT
         cid,
-        `weblog_relationships`.tid,
+        weblog_relationships.tid,
         `name`
         FROM
         `weblog_relationships`,
@@ -30,8 +34,7 @@
     </select>
     <select id="selectFields" resultType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO">
         SELECT
-        weblog_fields.`name` AS fields_name,
-        weblog_fields.`value` AS fields_value
+        name,value
         FROM
         weblog_fields
         WHERE

@@ -48,7 +48,7 @@ public class PostPO extends Model<PostPO> {
 
     private String status;
 
-    private Integer commentsNum;
+    private Integer comments;
 
     private Integer views;
 
