@@ -8,17 +8,14 @@
         <result column="category" property="category"/>
         <result column="category_id" property="category_id"/>
         <result column="created" property="created"/>
+        <result column="modified" property="modified" />
         <result column="views" property="views"/>
         <result column="likes" property="likes"/>
         <result column="comments" property="comments"/>
         <collection property="tag" ofType="cn.thinkmoon.blog.modules.post.pojo.TagPo" column="cid" select="selectTag">
-            <result column="tid" property="tid"/>
-            <result column="name" property="name"/>
         </collection>
         <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO" column="cid"
                     select="selectFields">
-            <result column="fields_name" property="name"/>
-            <result column="fields_value" property="value"/>
         </collection>
     </resultMap>
     <select id="selectTag" resultType="cn.thinkmoon.blog.modules.post.pojo.TagPo">
@@ -47,6 +44,7 @@
         title,
         text,
         created,
+        modified,
         views,
         likes,
         comments,
@@ -72,6 +70,7 @@
         title,
         text,
         created,
+        modified
         views,
         likes,
         comments,
