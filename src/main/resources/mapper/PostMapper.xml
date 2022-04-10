@@ -20,32 +20,28 @@
         SELECT
         weblog_contents.cid,
         title,
+        text,
         created,
         views,
         likes,
-        commentsNum,
-        weblog_category.mid AS category_id ,
-        GROUP_CONCAT( DISTINCT tag.`name` ) AS 'tag',
-        GROUP_CONCAT( DISTINCT weblog_category.`name` ) AS 'category',
-        thumb.value AS thumb,
-        `desc`.value AS `desc`
+        comments,
+        weblog_category.mid AS category_id,
+        weblog_category.`name` AS 'category',
+        A.`name` AS 'tag',
+        A.`tid` AS 'tag_id',
+        weblog_fields.`name` AS fields_name,
+        weblog_fields.`value` AS fields_value
         FROM
-        ( weblog_contents, weblog_relationships, weblog_category )
-        LEFT JOIN ( `weblog_fields` AS thumb ) ON ( thumb.NAME = 'thumb' AND weblog_contents.cid = thumb.cid )
-        LEFT JOIN ( `weblog_fields` AS `desc` ) ON ( `desc`.NAME = 'desc' AND weblog_contents.cid = `desc`.cid )
-        LEFT JOIN ( `weblog_tag` AS tag ) ON ( weblog_relationships.tid = tag.tid AND weblog_relationships.cid =
-        weblog_contents.cid)
-        WHERE
-        weblog_contents.type = "post"
-        AND weblog_category.mid = weblog_contents.category_id
+        ( weblog_contents, weblog_category )
+        LEFT JOIN ( SELECT cid, `weblog_relationships`.tid, `name` FROM `weblog_relationships`, `weblog_tag` WHERE
+        weblog_tag.tid = weblog_relationships.tid ) AS A ON ( A.cid = weblog_contents.cid )
+        LEFT JOIN `weblog_fields` ON ( weblog_contents.cid = weblog_fields.cid )
         <if test='keyword != ""'>
             AND ( weblog_contents.title LIKE #{keyword} OR weblog_contents.text LIKE #{keyword})
         </if>
         <if test='mid != 0'>
             AND weblog_contents.category_id = #{mid}
         </if>
-        GROUP BY
-        weblog_contents.cid
         ORDER BY
         created DESC
     </select>
@@ -61,8 +57,10 @@
         weblog_fields.`name` as fields_name,
         weblog_fields.`value` as fields_value
         FROM
-        ( weblog_contents, weblog_category, weblog_tag, weblog_relationships )
-        LEFT JOIN  `weblog_fields` ON (weblog_contents.cid = weblog_fields.cid )
+        ( weblog_contents, weblog_category )
+        LEFT JOIN `weblog_relationships` ON (weblog_relationships.cid = weblog_contents.cid )
+        LEFT JOIN `weblog_tag` ON (weblog_tag.tid = weblog_relationships.tid )
+        LEFT JOIN `weblog_fields` ON (weblog_contents.cid = weblog_fields.cid )
         WHERE
         weblog_contents.`type` = "post"
         AND weblog_contents.category_id = weblog_category.mid
