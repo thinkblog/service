@@ -5,6 +5,7 @@ import cn.thinkmoon.blog.core.annotation.Permission;
 import cn.thinkmoon.blog.modules.content.pojo.po.UserPO;
 import cn.thinkmoon.blog.modules.post.pojo.PostPO;
 import cn.thinkmoon.blog.modules.post.service.PostService;
+import cn.thinkmoon.blog.modules.post.vo.PostVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -39,9 +40,9 @@ public class PostController {
     @Permission(permissionTag = PermissionTag.ADMIN)
     @RequestMapping(value = "/update")
     public boolean updatePost(
-            @RequestBody Map body,
+            @RequestBody PostVo postVo,
             @RequestAttribute("user_info") UserPO user) {
-        return postService.updatePost((Long) body.get("cid"), user.getId(), (String) body.get("title"), (String) body.get("text"), (String) body.get("category_id"));
+        return postService.updatePost(postVo.getCid(),user.getId(), postVo.getTitle(), postVo.getText(), postVo.getCategory_id());
     }
 
     @RequestMapping(value = "/{cid}")

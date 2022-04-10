@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * 服务实现类
@@ -38,8 +40,8 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
         return postMapper.insertPost(post);
     }
 
-    public boolean updatePost(Long cid,int authorId,String title,String text,String category_id) {
-        PostPO post = new PostPO(cid,authorId,title,text,category_id);
+    public boolean updatePost(String cid,int userId,String title,String text,String category_id) {
+        PostPO post = new PostPO(Long.parseLong(cid),userId,title,text,category_id);
         return postMapper.updatePost(post);
     }
 }

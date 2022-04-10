@@ -4,11 +4,17 @@
     <resultMap id="IndexResultMap" type="cn.thinkmoon.blog.modules.post.pojo.PostPO">
         <id column="cid" property="cid"/>
         <result column="title" property="title"/>
-        <result column="tag" property="tag"/>
+        <result column="text" property="text"/>
         <result column="category" property="category"/>
-        <result column="thumb" property="thumb"/>
-        <result column="desc" property="desc"/>
         <result column="created" property="created"/>
+        <collection property="tag" ofType="cn.thinkmoon.blog.modules.post.pojo.TagPo">
+            <result column="tag_id" property="id"/>
+            <result column="tag" property="name"/>
+        </collection>
+        <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO">
+            <result column="fields_name" property="name"/>
+            <result column="fields_value" property="value"/>
+        </collection>
     </resultMap>
     <select id="selectPage" resultMap="IndexResultMap">
         SELECT
@@ -18,10 +24,11 @@
         views,
         likes,
         commentsNum,
+        weblog_category.mid AS category_id ,
         GROUP_CONCAT( DISTINCT tag.`name` ) AS 'tag',
         GROUP_CONCAT( DISTINCT weblog_category.`name` ) AS 'category',
-        thumb.str_value AS thumb,
-        `desc`.str_value AS `desc`
+        thumb.value AS thumb,
+        `desc`.value AS `desc`
         FROM
         ( weblog_contents, weblog_relationships, weblog_category )
         LEFT JOIN ( `weblog_fields` AS thumb ) ON ( thumb.NAME = 'thumb' AND weblog_contents.cid = thumb.cid )
@@ -42,20 +49,20 @@
         ORDER BY
         created DESC
     </select>
-    <select id="getDetail" resultType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
+    <select id="getDetail" resultMap="IndexResultMap">
         SELECT
-        weblog_contents.*,
-        GROUP_CONCAT( DISTINCT weblog_tag.`name` ) AS 'tag',
+        weblog_contents.cid,
+        weblog_contents.title,
+        weblog_contents.text,
+        weblog_tag.`name` AS 'tag',
+        weblog_tag.`tid` AS 'tag_id',
         weblog_category.`name` AS category,
-        thumb.str_value AS thumb,
-        `desc`.str_value AS `desc`
+        weblog_category.`mid` AS category_id,
+        weblog_fields.`name` as fields_name,
+        weblog_fields.`value` as fields_value
         FROM
-        (weblog_contents,
-        weblog_category,
-        weblog_tag,
-        weblog_relationships)
-        LEFT JOIN ( `weblog_fields` AS thumb ) ON ( thumb.NAME = 'thumb' AND weblog_contents.cid = thumb.cid )
-        LEFT JOIN ( `weblog_fields` AS `desc` ) ON ( `desc`.NAME = 'desc' AND weblog_contents.cid = `desc`.cid )
+        ( weblog_contents, weblog_category, weblog_tag, weblog_relationships )
+        LEFT JOIN  `weblog_fields` ON (weblog_contents.cid = weblog_fields.cid )
         WHERE
         weblog_contents.`type` = "post"
         AND weblog_contents.category_id = weblog_category.mid

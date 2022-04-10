@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -53,7 +54,7 @@ public class PostPO extends Model<PostPO> {
 
     private Integer likes;
 
-    private String tag;
+    private List<TagPo> tag;
 
     private String category;
 
@@ -62,6 +63,8 @@ public class PostPO extends Model<PostPO> {
     private String thumb;
 
     private String desc;
+
+    private List<FieldsPO> fields;
 
     public PostPO() {
 
