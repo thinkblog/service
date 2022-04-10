@@ -34,7 +34,7 @@ public class PostController {
     public boolean addPost(
             @RequestBody Map body,
             @RequestAttribute("user_info") UserPO user) {
-        return postService.addPost(user.getId(), (String) body.get("title"), (String) body.get("text"), (String) body.get("category_id"));
+        return postService.addPost(user.getId(), (String) body.get("title"), (String) body.get("text"), (int) body.get("category_id"));
     }
 
     @Permission(permissionTag = PermissionTag.ADMIN)

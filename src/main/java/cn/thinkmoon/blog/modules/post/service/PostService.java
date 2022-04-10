@@ -35,12 +35,12 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
         return postMapper.getAboutPost();
     }
 
-    public boolean addPost(int authorId,String title,String text,String category_id) {
+    public boolean addPost(int authorId,String title,String text,int category_id) {
         PostPO post = new PostPO(authorId,title,text,category_id);
         return postMapper.insertPost(post);
     }
 
-    public boolean updatePost(String cid,int userId,String title,String text,String category_id) {
+    public boolean updatePost(String cid,int userId,String title,String text,int category_id) {
         PostPO post = new PostPO(Long.parseLong(cid),userId,title,text,category_id);
         return postMapper.updatePost(post);
     }

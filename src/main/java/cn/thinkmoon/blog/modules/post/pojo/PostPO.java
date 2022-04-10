@@ -58,7 +58,7 @@ public class PostPO extends Model<PostPO> {
 
     private String category;
 
-    private String category_id;
+    private int category_id;
 
     private String thumb;
 
@@ -70,7 +70,7 @@ public class PostPO extends Model<PostPO> {
 
     }
 
-    public PostPO(long authorId, String title, String text, String category_id){
+    public PostPO(long authorId, String title, String text, int category_id){
         this.authorId = authorId;
         this.title = title;
         this.text = text;
@@ -78,7 +78,7 @@ public class PostPO extends Model<PostPO> {
         this.modified = this.created = (int) (System.currentTimeMillis() / 1000);
     }
 
-    public PostPO(Long cid,int authorId, String title, String text, String category_id){
+    public PostPO(Long cid,int authorId, String title, String text, int category_id){
         this.cid = cid;
         this.authorId = authorId;
         this.title = title;

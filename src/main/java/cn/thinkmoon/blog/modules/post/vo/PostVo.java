@@ -10,5 +10,5 @@ public class PostVo {
 
     private String text;
 
-    private String category_id;
+    private int category_id;
 }
