@@ -16,21 +16,6 @@
             <result column="fields_value" property="value"/>
         </collection>
     </resultMap>
-    <resultMap id="detail" type="cn.thinkmoon.blog.modules.post.pojo.PostPO">
-        <id column="cid" property="cid"/>
-        <result column="title" property="title"/>
-        <result column="text" property="text"/>
-        <result column="category" property="category"/>
-        <result column="created" property="created"/>
-        <collection property="tag" ofType="cn.thinkmoon.blog.modules.post.pojo.TagPo">
-            <result column="tag_id" property="id"/>
-            <result column="tag" property="name"/>
-        </collection>
-        <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO">
-            <result column="fields_name" property="name"/>
-            <result column="fields_value" property="value"/>
-        </collection>
-    </resultMap>
     <select id="selectTag" resultType="cn.thinkmoon.blog.modules.post.pojo.TagPo">
         SELECT
         cid,
@@ -77,27 +62,22 @@
         ORDER BY
         created DESC
     </select>
-    <select id="getDetail" resultMap="detail">
+    <select id="getDetail" resultMap="IndexResultMap">
         SELECT
         weblog_contents.cid,
-        weblog_contents.title,
-        weblog_contents.text,
-        weblog_tag.`name` AS 'tag',
-        weblog_tag.`tid` AS 'tag_id',
-        weblog_category.`name` AS category,
-        weblog_category.`mid` AS category_id,
-        weblog_fields.`name` as fields_name,
-        weblog_fields.`value` as fields_value
+        title,
+        text,
+        created,
+        views,
+        likes,
+        comments,
+        weblog_category.mid AS category_id,
+        weblog_category.`name` AS 'category'
         FROM
         ( weblog_contents, weblog_category )
-        LEFT JOIN `weblog_relationships` ON (weblog_relationships.cid = weblog_contents.cid )
-        LEFT JOIN `weblog_tag` ON (weblog_tag.tid = weblog_relationships.tid )
-        LEFT JOIN `weblog_fields` ON (weblog_contents.cid = weblog_fields.cid )
         WHERE
-        weblog_contents.`type` = "post"
+        weblog_contents.type = "post"
         AND weblog_contents.category_id = weblog_category.mid
-        AND weblog_relationships.cid = weblog_contents.cid
-        AND weblog_tag.tid = weblog_relationships.tid
         AND weblog_contents.cid = #{cid}
     </select>
     <select id="getAboutPost" resultType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
