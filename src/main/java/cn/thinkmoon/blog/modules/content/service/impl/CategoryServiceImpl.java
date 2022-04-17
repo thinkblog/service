@@ -17,4 +17,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryPO> queryList() {
         return categoryMapper.queryList();
     }
+
+    public CategoryPO getDetail(String id) {
+        return categoryMapper.getDetail(id);
+    }
 }

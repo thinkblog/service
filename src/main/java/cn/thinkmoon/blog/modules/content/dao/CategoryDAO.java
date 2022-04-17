@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CategoryDAO extends BaseMapper<CategoryPO> {
     List<CategoryPO> queryList();
+
+    CategoryPO getDetail(String id);
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface CategoryService {
 
     List<CategoryPO> queryList();
+
+    CategoryPO getDetail(String id);
 }
