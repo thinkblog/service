@@ -13,7 +13,7 @@ public class TagService extends ServiceImpl<TagDAO, TagPO>  {
     @Autowired
     private TagDAO tagMapper;
 
-    public List<TagPO> queryList() {
-        return tagMapper.queryList();
+    public List<TagPO> queryList(String name) {
+        return tagMapper.queryList(name);
     }
 }

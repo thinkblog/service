@@ -4,13 +4,17 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.thinkmoon.blog.modules.content.pojo.po.CategoryPO">
-        <id column="mid" property="mid" />
-        <result column="name" property="name" />
+        <id column="mid" property="mid"/>
+        <result column="name" property="name"/>
+        <result column="count" property="count"/>
     </resultMap>
     <select id="queryList" resultMap="BaseResultMap">
         SELECT
         *
         FROM
         weblog_category
+        <if test='name != ""'>
+            WHERE name = #{name}
+        </if>
     </select>
 </mapper>

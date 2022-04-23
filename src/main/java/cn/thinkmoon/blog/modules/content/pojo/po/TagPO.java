@@ -14,5 +14,7 @@ public class TagPO extends Model<TagPO> {
 
     private String name;
 
-    private String count;
+    private int order;
+
+    private int count;
 }

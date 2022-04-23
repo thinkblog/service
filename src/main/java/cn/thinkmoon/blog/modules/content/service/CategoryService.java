@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<CategoryPO> queryList();
+    List<CategoryPO> queryList(String name);
 }

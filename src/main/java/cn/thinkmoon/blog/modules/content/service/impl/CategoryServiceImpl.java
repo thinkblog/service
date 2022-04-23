@@ -14,7 +14,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Resource
     private CategoryDAO categoryMapper;
 
-    public List<CategoryPO> queryList() {
-        return categoryMapper.queryList();
+    public List<CategoryPO> queryList(String name) {
+        return categoryMapper.queryList(name);
     }
 }

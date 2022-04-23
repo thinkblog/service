@@ -7,5 +7,5 @@ import java.util.List;
 
 
 public interface CategoryDAO extends BaseMapper<CategoryPO> {
-    List<CategoryPO> queryList();
+    List<CategoryPO> queryList(String name);
 }

@@ -3,8 +3,7 @@ package cn.thinkmoon.blog.modules.content.controller;
 import cn.thinkmoon.blog.modules.content.pojo.po.TagPO;
 import cn.thinkmoon.blog.modules.content.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class TagController {
     private TagService tagService;
 
     @RequestMapping(value = "/list")
-    public List<TagPO> Index() {
-        return tagService.queryList();
+    public List<TagPO> Index(@RequestParam(defaultValue = "") String name) {
+        return tagService.queryList(name);
     }
 }

@@ -4,63 +4,90 @@
     <resultMap id="IndexResultMap" type="cn.thinkmoon.blog.modules.post.pojo.PostPO">
         <id column="cid" property="cid"/>
         <result column="title" property="title"/>
-        <result column="tag" property="tag"/>
+        <result column="text" property="text"/>
         <result column="category" property="category"/>
-        <result column="thumb" property="thumb"/>
-        <result column="desc" property="desc"/>
+        <result column="category_id" property="category_id"/>
         <result column="created" property="created"/>
+        <result column="modified" property="modified"/>
+        <result column="views" property="views"/>
+        <result column="likes" property="likes"/>
+        <result column="comments" property="comments"/>
+        <collection property="tag" ofType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO" column="cid"
+                    select="selectTag">
+        </collection>
+        <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO" column="cid"
+                    select="selectFields">
+        </collection>
     </resultMap>
+    <select id="selectTag" resultType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO">
+        SELECT
+        cid,
+        weblog_relationships.tid,
+        `name`
+        FROM
+        `weblog_relationships`,
+        `weblog_tag`
+        WHERE
+        weblog_tag.tid = weblog_relationships.tid
+        AND cid = #{cid}
+    </select>
+    <select id="selectFields" resultType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO">
+        SELECT
+        name,value
+        FROM
+        weblog_fields
+        WHERE
+        cid = #{cid}
+    </select>
     <select id="selectPage" resultMap="IndexResultMap">
         SELECT
         weblog_contents.cid,
         title,
+        text,
         created,
+        modified,
         views,
         likes,
-        commentsNum,
-        GROUP_CONCAT( DISTINCT tag.`name` ) AS 'tag',
-        GROUP_CONCAT( DISTINCT weblog_category.`name` ) AS 'category',
-        thumb.str_value AS thumb,
-        `desc`.str_value AS `desc`
+        comments,
+        weblog_category.mid AS category_id,
+        weblog_category.`name` AS 'category'
         FROM
-        ( weblog_contents, weblog_relationships, weblog_category )
-        LEFT JOIN ( `weblog_fields` AS thumb ) ON ( thumb.NAME = 'thumb' AND weblog_contents.cid = thumb.cid )
-        LEFT JOIN ( `weblog_fields` AS `desc` ) ON ( `desc`.NAME = 'desc' AND weblog_contents.cid = `desc`.cid )
-        LEFT JOIN ( `weblog_tag` AS tag ) ON ( weblog_relationships.tid = tag.tid AND weblog_relationships.cid =
-        weblog_contents.cid)
+        ( weblog_contents, weblog_category )
         WHERE
         weblog_contents.type = "post"
-        AND weblog_category.mid = weblog_contents.category_id
+        AND weblog_contents.category_id = weblog_category.mid
         <if test='keyword != ""'>
             AND ( weblog_contents.title LIKE #{keyword} OR weblog_contents.text LIKE #{keyword})
         </if>
-        <if test='mid != 0'>
-            AND weblog_contents.category_id = #{mid}
+        <if test='category != ""'>
+            AND weblog_category.`name` = #{category}
         </if>
-        GROUP BY
-        weblog_contents.cid
+        <if test="cidList != null and cidList.size() > 0">
+            AND weblog_contents.cid IN
+            <foreach collection="cidList" item="item" index="index" open="(" close=")" separator=",">
+                #{item.cid}
+            </foreach>
+        </if>
         ORDER BY
         created DESC
     </select>
-    <select id="getDetail" resultType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
+    <select id="getDetail" resultMap="IndexResultMap">
         SELECT
-        weblog_contents.*,
-        GROUP_CONCAT( DISTINCT weblog_tag.`name` ) AS 'tag',
-        weblog_category.`name` AS category,
-        thumb.str_value AS thumb,
-        `desc`.str_value AS `desc`
+        weblog_contents.cid,
+        title,
+        text,
+        created,
+        modified,
+        views,
+        likes,
+        comments,
+        weblog_category.mid AS category_id,
+        weblog_category.`name` AS 'category'
         FROM
-        (weblog_contents,
-        weblog_category,
-        weblog_tag,
-        weblog_relationships)
-        LEFT JOIN ( `weblog_fields` AS thumb ) ON ( thumb.NAME = 'thumb' AND weblog_contents.cid = thumb.cid )
-        LEFT JOIN ( `weblog_fields` AS `desc` ) ON ( `desc`.NAME = 'desc' AND weblog_contents.cid = `desc`.cid )
+        ( weblog_contents, weblog_category )
         WHERE
-        weblog_contents.`type` = "post"
+        weblog_contents.type = "post"
         AND weblog_contents.category_id = weblog_category.mid
-        AND weblog_relationships.cid = weblog_contents.cid
-        AND weblog_tag.tid = weblog_relationships.tid
         AND weblog_contents.cid = #{cid}
     </select>
     <select id="getAboutPost" resultType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
