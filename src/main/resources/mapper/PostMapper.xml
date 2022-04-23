@@ -12,13 +12,13 @@
         <result column="views" property="views"/>
         <result column="likes" property="likes"/>
         <result column="comments" property="comments"/>
-        <collection property="tag" ofType="cn.thinkmoon.blog.modules.post.pojo.TagPo" column="cid" select="selectTag">
+        <collection property="tag" ofType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO" column="cid" select="selectTag">
         </collection>
         <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO" column="cid"
                     select="selectFields">
         </collection>
     </resultMap>
-    <select id="selectTag" resultType="cn.thinkmoon.blog.modules.post.pojo.TagPo">
+    <select id="selectTag" resultType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO">
         SELECT
         cid,
         weblog_relationships.tid,
@@ -58,8 +58,8 @@
         <if test='keyword != ""'>
             AND ( weblog_contents.title LIKE #{keyword} OR weblog_contents.text LIKE #{keyword})
         </if>
-        <if test='mid != 0'>
-            AND weblog_contents.category_id = #{mid}
+        <if test='category != ""'>
+            AND weblog_category.`name` = #{category}
         </if>
         ORDER BY
         created DESC

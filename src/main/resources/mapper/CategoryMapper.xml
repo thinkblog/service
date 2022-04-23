@@ -13,13 +13,8 @@
         *
         FROM
         weblog_category
-    </select>
-    <select id="getDetail" resultMap="BaseResultMap">
-        SELECT
-        *
-        FROM
-        weblog_category
-        WHERE mid = #{id}
-        LIMIT 1
+        <if test='name != ""'>
+            WHERE name = #{name}
+        </if>
     </select>
 </mapper>

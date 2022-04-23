@@ -16,4 +16,8 @@ public class TagService extends ServiceImpl<TagDAO, TagPO>  {
     public List<TagPO> queryList() {
         return tagMapper.queryList();
     }
+
+    public TagPO getDetail(String id) {
+        return tagMapper.getDetail(id);
+    }
 }

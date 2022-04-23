@@ -1,5 +1,6 @@
 package cn.thinkmoon.blog.modules.post.pojo;
 
+import cn.thinkmoon.blog.modules.content.pojo.po.TagPO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -54,7 +55,7 @@ public class PostPO extends Model<PostPO> {
 
     private Integer likes;
 
-    private List<TagPo> tag;
+    private List<TagPO> tag;
 
     private String category;
 

@@ -24,9 +24,9 @@ public class PostController {
     @RequestMapping(value = "/list")
     public IPage<PostPO> Index(@RequestParam(defaultValue = "1") Integer current,
                                @RequestParam(defaultValue = "10") Integer size,
-                               @RequestParam(defaultValue = "0") Integer mid,
+                               @RequestParam(defaultValue = "") String category,
                                @RequestParam(defaultValue = "") String keyword) {
-        return postService.selectPage(new Page<PostPO>(current, size), mid, keyword);
+        return postService.selectPage(new Page<PostPO>(current, size), category, keyword);
     }
 
     @Permission(permissionTag = PermissionTag.ADMIN)
@@ -58,8 +58,8 @@ public class PostController {
     @RequestMapping(value = "/search")
     public IPage<PostPO> searchPost(@RequestParam(defaultValue = "1") Integer current,
                                     @RequestParam(defaultValue = "10") Integer size,
-                                    @RequestParam(defaultValue = "0") Integer tid,
+                                    @RequestParam(defaultValue = "") String category,
                                     @RequestParam(defaultValue = "") String keyword) {
-        return postService.selectPage(new Page<PostPO>(current, size), tid, keyword);
+        return postService.selectPage(new Page<PostPO>(current, size), category, keyword);
     }
 }

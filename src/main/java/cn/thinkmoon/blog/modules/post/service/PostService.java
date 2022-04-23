@@ -23,8 +23,8 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
     @Autowired
     private PostDAO postMapper;
 
-    public IPage<PostPO> selectPage(Page<PostPO> page, int mid, String keyword) {
-        return postMapper.selectPage(page, mid, "%" + keyword + "%");
+    public IPage<PostPO> selectPage(Page<PostPO> page, String category, String keyword) {
+        return postMapper.selectPage(page, category, "%" + keyword + "%");
     }
 
     public PostPO getDetail(String cid) {

@@ -2,7 +2,7 @@ package cn.thinkmoon.blog.modules.post.dao;
 
 import cn.thinkmoon.blog.modules.post.pojo.FieldsPO;
 import cn.thinkmoon.blog.modules.post.pojo.PostPO;
-import cn.thinkmoon.blog.modules.post.pojo.TagPo;
+import cn.thinkmoon.blog.modules.content.pojo.po.TagPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,11 +18,11 @@ import java.util.List;
  * @since 2020-12-12
  */
 public interface PostDAO extends BaseMapper<PostPO> {
-    List<TagPo> selectTag(int cid);
+    List<TagPO> selectTag(int cid);
 
     List<FieldsPO> selectFields(int cid);
 
-    IPage<PostPO> selectPage(Page<?> page, int mid, String keyword);
+    IPage<PostPO> selectPage(Page<?> page, String category, String keyword);
 
     PostPO getDetail(String cid);
 
