@@ -22,7 +22,9 @@ public interface PostDAO extends BaseMapper<PostPO> {
 
     List<FieldsPO> selectFields(int cid);
 
-    IPage<PostPO> selectPage(Page<?> page, String category, String keyword);
+    List<PostPO> selectPage(List<PostPO> cidList, String category, String keyword);
+
+    IPage<PostPO> selectPage(Page<?> page, String category, String keyword, List<PostPO> cidList);
 
     PostPO getDetail(String cid);
 
@@ -31,4 +33,5 @@ public interface PostDAO extends BaseMapper<PostPO> {
     boolean insertPost(PostPO post);
 
     boolean updatePost(PostPO post);
+
 }

@@ -4,25 +4,30 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.thinkmoon.blog.modules.content.pojo.po.TagPO">
-        <id column="tid" property="tid" />
-        <result column="name" property="name" />
-        <result column="order" property="order" />
-        <result column="count" property="count" />
+        <id column="tid" property="tid"/>
+        <result column="name" property="name"/>
+        <result column="order" property="order"/>
+        <result column="count" property="count"/>
     </resultMap>
     <select id="queryList" resultMap="BaseResultMap">
         SELECT
         *
         FROM
         weblog_tag
+        <if test='name != ""'>
+            WHERE name = #{name}
+        </if>
         ORDER BY
         `order`
     </select>
-    <select id="getDetail" resultMap="BaseResultMap">
+    <select id="getPostList" resultType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
         SELECT
-        *
+        cid
         FROM
-        weblog_tag
-        WHERE tid = #{id}
-        LIMIT 1
+        `weblog_relationships`,
+        `weblog_tag`
+        WHERE
+        weblog_tag.tid = weblog_relationships.tid
+        AND weblog_tag.name = #{tagName}
     </select>
 </mapper>

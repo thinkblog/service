@@ -1,5 +1,6 @@
 package cn.thinkmoon.blog.modules.post.service;
 
+import cn.thinkmoon.blog.modules.content.dao.TagDAO;
 import cn.thinkmoon.blog.modules.post.dao.PostDAO;
 import cn.thinkmoon.blog.modules.post.pojo.PostPO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -23,8 +25,16 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
     @Autowired
     private PostDAO postMapper;
 
+    @Autowired
+    private TagDAO tagDAO;
+
     public IPage<PostPO> selectPage(Page<PostPO> page, String category, String keyword) {
-        return postMapper.selectPage(page, category, "%" + keyword + "%");
+        return postMapper.selectPage(page, category, "%" + keyword + "%",null);
+    }
+
+    public List<PostPO> getListByTag(String tagName) {
+        List<PostPO> po = tagDAO.getPostList(tagName);
+        return postMapper.selectPage(po,"","");
     }
 
     public PostPO getDetail(String cid) {

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -27,6 +28,12 @@ public class PostController {
                                @RequestParam(defaultValue = "") String category,
                                @RequestParam(defaultValue = "") String keyword) {
         return postService.selectPage(new Page<PostPO>(current, size), category, keyword);
+    }
+
+    @RequestMapping(value = "/list-by-tag")
+    public List<PostPO> getListByTag(
+            @RequestParam(defaultValue = "") String name) {
+        return postService.getListByTag(name);
     }
 
     @Permission(permissionTag = PermissionTag.ADMIN)

@@ -8,11 +8,12 @@
         <result column="category" property="category"/>
         <result column="category_id" property="category_id"/>
         <result column="created" property="created"/>
-        <result column="modified" property="modified" />
+        <result column="modified" property="modified"/>
         <result column="views" property="views"/>
         <result column="likes" property="likes"/>
         <result column="comments" property="comments"/>
-        <collection property="tag" ofType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO" column="cid" select="selectTag">
+        <collection property="tag" ofType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO" column="cid"
+                    select="selectTag">
         </collection>
         <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO" column="cid"
                     select="selectFields">
@@ -60,6 +61,12 @@
         </if>
         <if test='category != ""'>
             AND weblog_category.`name` = #{category}
+        </if>
+        <if test="cidList != null and cidList.size() > 0">
+            AND weblog_contents.cid IN
+            <foreach collection="cidList" item="item" index="index" open="(" close=")" separator=",">
+                #{item.cid}
+            </foreach>
         </if>
         ORDER BY
         created DESC
