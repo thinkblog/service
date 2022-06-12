@@ -13,7 +13,8 @@ import java.util.Map;
 @Component
 public class JWT {
 
-    private JWT() {}
+    private JWT() {
+    }
 
     // 从配置文件加载值
     private static String tokenSecret;
@@ -40,7 +41,7 @@ public class JWT {
     /**
      * 生成Token
      *
-     * @param id String
+     * @param id  String
      * @param map Map
      * @return token String
      */
@@ -55,6 +56,13 @@ public class JWT {
                 .signWith(SignatureAlgorithm.HS256, tokenSecret);
 
         jwtBuilder.setExpiration(new Date(ttl));
+        return jwtBuilder.compact();
+    }
+
+    public static String generateToken(Claims claims) {
+        JwtBuilder jwtBuilder = Jwts.builder()
+                .setClaims(claims)
+                .signWith(SignatureAlgorithm.HS256, tokenSecret);
         return jwtBuilder.compact();
     }
 
