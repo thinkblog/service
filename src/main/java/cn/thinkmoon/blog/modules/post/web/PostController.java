@@ -23,7 +23,6 @@ public class PostController {
     private PostService postService;
 
     @RequestMapping(value = "/list")
-    @Permission(permissionTag = PermissionTag.ADMIN)
     public IPage<PostPO> Index(@RequestParam(defaultValue = "1") Integer current,
                                @RequestParam(defaultValue = "10") Integer size,
                                @RequestParam(defaultValue = "") String category,
