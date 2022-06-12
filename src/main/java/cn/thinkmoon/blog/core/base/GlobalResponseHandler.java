@@ -49,7 +49,6 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseResult error(HttpServletRequest request, HttpServletResponse response, Exception e) {
-        log.info("error");
         if (e.getClass() == CommonException.class) {
             CommonException ce = (CommonException) e;
             response.setStatus(ce.getResultCode().code());
