@@ -61,7 +61,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
             int ONE_DAY_MILLIS = 24 * 3600 * 1000;
 
             // 当token还有一个小时就要过期时，重新刷新过期时间，并写入cookies
-            if(claims.getExpiration().getTime() < new Date().getTime() + ONE_HOUR_MILLIS){
+            if (claims.getExpiration().getTime() < new Date().getTime() + ONE_HOUR_MILLIS) {
                 claims.setExpiration(new Date(new Date().getTime() + ONE_DAY_MILLIS));
                 String newToken = JWT.generateToken(claims);
                 Cookie cookie = new Cookie("auth", newToken);

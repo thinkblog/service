@@ -43,7 +43,6 @@
         SELECT
         weblog_contents.cid,
         title,
-        text,
         created,
         modified,
         views,
