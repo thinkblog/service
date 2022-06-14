@@ -60,8 +60,12 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
         return cid;
     }
 
-    public boolean updatePost(int cid,int userId,String title,String text,int category_id) {
+    public int updatePost(int cid,int userId,String title,String text,int category_id,List<FieldsPO> fieldsPOList) {
         PostPO post = new PostPO(cid,userId,title,text,category_id);
-        return postMapper.updatePost(post);
+        postMapper.updatePost(post);
+        fieldMapper.deleteField(cid);
+        fieldsPOList.stream().forEach(item -> item.setCid(cid));
+        fieldMapper.addField(fieldsPOList);
+        return cid;
     }
 }

@@ -3,7 +3,6 @@ package cn.thinkmoon.blog.modules.post.web;
 import cn.thinkmoon.blog.core.enums.PermissionTag;
 import cn.thinkmoon.blog.core.annotation.Permission;
 import cn.thinkmoon.blog.modules.content.pojo.po.UserPO;
-import cn.thinkmoon.blog.modules.post.pojo.FieldsPO;
 import cn.thinkmoon.blog.modules.post.pojo.PostPO;
 import cn.thinkmoon.blog.modules.post.service.PostService;
 import cn.thinkmoon.blog.modules.post.vo.PostVo;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -47,10 +45,10 @@ public class PostController {
 
     @Permission(permissionTag = PermissionTag.ADMIN)
     @RequestMapping(value = "/update")
-    public boolean updatePost(
+    public int updatePost(
             @RequestBody PostVo postVo,
             @RequestAttribute("user_info") UserPO user) {
-        return postService.updatePost(postVo.getCid(),user.getId(), postVo.getTitle(), postVo.getText(), postVo.getCategory_id());
+        return postService.updatePost(postVo.getCid(),user.getId(), postVo.getTitle(), postVo.getText(), postVo.getCategory_id(),postVo.getCustomOptions());
     }
 
     @RequestMapping(value = "/{cid}")
