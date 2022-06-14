@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.thinkmoon.blog.modules.post.dao.FieldDAO">
+    <insert id="addField">
+        INSERT INTO weblog_fields (cid,name,value)
+        VALUES
+        <foreach collection ="fieldsPOList" item="field" separator =",">
+            (#{field.cid}, #{field.name}, #{field.value})
+        </foreach >
+    </insert>
+
+    <delete id="deleteField">
+        DELETE FROM weblog_fields
+        WHERE cid=#{cid};
+    </delete>
+</mapper>

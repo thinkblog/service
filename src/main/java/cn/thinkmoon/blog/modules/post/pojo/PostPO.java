@@ -29,7 +29,7 @@ public class PostPO extends Model<PostPO> {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "cid", type = IdType.AUTO)
-    private Long cid;
+    private int cid;
 
     private String title;
 
@@ -79,7 +79,7 @@ public class PostPO extends Model<PostPO> {
         this.modified = this.created = (int) (System.currentTimeMillis() / 1000);
     }
 
-    public PostPO(Long cid,int authorId, String title, String text, int category_id){
+    public PostPO(int cid,int authorId, String title, String text, int category_id){
         this.cid = cid;
         this.authorId = authorId;
         this.title = title;

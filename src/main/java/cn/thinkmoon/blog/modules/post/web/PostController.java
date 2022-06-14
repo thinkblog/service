@@ -3,6 +3,7 @@ package cn.thinkmoon.blog.modules.post.web;
 import cn.thinkmoon.blog.core.enums.PermissionTag;
 import cn.thinkmoon.blog.core.annotation.Permission;
 import cn.thinkmoon.blog.modules.content.pojo.po.UserPO;
+import cn.thinkmoon.blog.modules.post.pojo.FieldsPO;
 import cn.thinkmoon.blog.modules.post.pojo.PostPO;
 import cn.thinkmoon.blog.modules.post.service.PostService;
 import cn.thinkmoon.blog.modules.post.vo.PostVo;
@@ -38,10 +39,10 @@ public class PostController {
 
     @Permission(permissionTag = PermissionTag.ADMIN)
     @RequestMapping(value = "/add")
-    public boolean addPost(
-            @RequestBody Map body,
+    public int addPost(
+            @RequestBody PostVo postVo,
             @RequestAttribute("user_info") UserPO user) {
-        return postService.addPost(user.getId(), (String) body.get("title"), (String) body.get("text"), (int) body.get("category_id"));
+        return postService.addPost((Integer) user.getId(), postVo.getTitle(), postVo.getText(), postVo.getCategory_id(), postVo.getCustomOptions());
     }
 
     @Permission(permissionTag = PermissionTag.ADMIN)

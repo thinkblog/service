@@ -1,7 +1,9 @@
 package cn.thinkmoon.blog.modules.post.service;
 
 import cn.thinkmoon.blog.modules.content.dao.TagDAO;
+import cn.thinkmoon.blog.modules.post.dao.FieldDAO;
 import cn.thinkmoon.blog.modules.post.dao.PostDAO;
+import cn.thinkmoon.blog.modules.post.pojo.FieldsPO;
 import cn.thinkmoon.blog.modules.post.pojo.PostPO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -26,6 +28,9 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
     private PostDAO postMapper;
 
     @Autowired
+    private FieldDAO fieldMapper;
+
+    @Autowired
     private TagDAO tagDAO;
 
     public IPage<PostPO> selectPage(Page<PostPO> page, String category, String keyword) {
@@ -45,13 +50,18 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
         return postMapper.getAboutPost();
     }
 
-    public boolean addPost(int authorId,String title,String text,int category_id) {
+    public int addPost(int authorId,String title,String text,int category_id,List<FieldsPO> fieldsPOList) {
         PostPO post = new PostPO(authorId,title,text,category_id);
-        return postMapper.insertPost(post);
+        postMapper.insertPost(post);
+        int cid = post.getCid();
+        fieldMapper.deleteField(cid);
+        fieldsPOList.stream().forEach(item -> item.setCid(cid));
+        fieldMapper.addField(fieldsPOList);
+        return cid;
     }
 
-    public boolean updatePost(String cid,int userId,String title,String text,int category_id) {
-        PostPO post = new PostPO(Long.parseLong(cid),userId,title,text,category_id);
+    public boolean updatePost(int cid,int userId,String title,String text,int category_id) {
+        PostPO post = new PostPO(cid,userId,title,text,category_id);
         return postMapper.updatePost(post);
     }
 }

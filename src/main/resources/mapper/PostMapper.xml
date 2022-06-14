@@ -97,7 +97,7 @@
         WHERE
         weblog_options.`name` = 'aboutCid' and weblog_options.`value` = weblog_contents.cid
     </select>
-    <insert id="insertPost" parameterType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
+    <insert id="insertPost" parameterType="cn.thinkmoon.blog.modules.post.pojo.PostPO" useGeneratedKeys="true" keyColumn="cid" keyProperty="cid">
         INSERT INTO weblog_contents (authorId,title,text,category_id,created,modified)
         VALUES
         (#{authorId},#{title},#{text},#{category_id},#{created},#{modified})
