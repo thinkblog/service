@@ -55,7 +55,7 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
         postMapper.insertPost(post);
         int cid = post.getCid();
         fieldMapper.deleteField(cid);
-        fieldsPOList.stream().forEach(item -> item.setCid(cid));
+        fieldsPOList.forEach(item -> item.setCid(cid));
         fieldMapper.addField(fieldsPOList);
         return cid;
     }
@@ -64,7 +64,7 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
         PostPO post = new PostPO(cid,userId,title,text,category_id);
         postMapper.updatePost(post);
         fieldMapper.deleteField(cid);
-        fieldsPOList.stream().forEach(item -> item.setCid(cid));
+        fieldsPOList.forEach(item -> item.setCid(cid));
         fieldMapper.addField(fieldsPOList);
         return cid;
     }
