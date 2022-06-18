@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.thinkmoon.blog.modules.dao.CategoryDAO">
+<mapper namespace="cn.thinkmoon.blog.modules.pojo.dao.CategoryDAO">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.thinkmoon.blog.modules.pojo.CategoryPO">
+    <resultMap id="BaseResultMap" type="cn.thinkmoon.blog.modules.pojo.po.CategoryPO">
         <id column="mid" property="mid"/>
         <result column="name" property="name"/>
         <result column="count" property="count"/>

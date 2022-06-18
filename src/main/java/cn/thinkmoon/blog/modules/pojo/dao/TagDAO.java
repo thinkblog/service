@@ -1,7 +1,7 @@
-package cn.thinkmoon.blog.modules.dao;
+package cn.thinkmoon.blog.modules.pojo.dao;
 
-import cn.thinkmoon.blog.modules.pojo.TagPO;
-import cn.thinkmoon.blog.modules.pojo.PostPO;
+import cn.thinkmoon.blog.modules.pojo.po.TagPO;
+import cn.thinkmoon.blog.modules.pojo.po.PostPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;

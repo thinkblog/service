@@ -1,7 +1,7 @@
 package cn.thinkmoon.blog.modules.service;
 
-import cn.thinkmoon.blog.modules.pojo.CategoryPO;
-import cn.thinkmoon.blog.modules.dao.CategoryDAO;
+import cn.thinkmoon.blog.modules.pojo.po.CategoryPO;
+import cn.thinkmoon.blog.modules.pojo.dao.CategoryDAO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

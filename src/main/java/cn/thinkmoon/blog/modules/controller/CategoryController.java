@@ -1,6 +1,6 @@
 package cn.thinkmoon.blog.modules.controller;
 
-import cn.thinkmoon.blog.modules.pojo.CategoryPO;
+import cn.thinkmoon.blog.modules.pojo.po.CategoryPO;
 import cn.thinkmoon.blog.modules.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 

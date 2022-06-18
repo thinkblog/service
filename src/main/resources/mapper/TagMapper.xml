@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.thinkmoon.blog.modules.dao.TagDAO">
+<mapper namespace="cn.thinkmoon.blog.modules.pojo.dao.TagDAO">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.thinkmoon.blog.modules.pojo.TagPO">
+    <resultMap id="BaseResultMap" type="cn.thinkmoon.blog.modules.pojo.po.TagPO">
         <id column="tid" property="tid"/>
         <result column="name" property="name"/>
         <result column="order" property="order"/>
@@ -20,7 +20,7 @@
         ORDER BY
         `order`
     </select>
-    <select id="getPostList" resultType="cn.thinkmoon.blog.modules.pojo.PostPO">
+    <select id="getPostList" resultType="cn.thinkmoon.blog.modules.pojo.po.PostPO">
         SELECT
         cid
         FROM

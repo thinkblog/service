@@ -1,8 +1,8 @@
-package cn.thinkmoon.blog.modules.dao;
+package cn.thinkmoon.blog.modules.pojo.dao;
 
-import cn.thinkmoon.blog.modules.pojo.FieldsPO;
-import cn.thinkmoon.blog.modules.pojo.PostPO;
-import cn.thinkmoon.blog.modules.pojo.TagPO;
+import cn.thinkmoon.blog.modules.pojo.po.FieldsPO;
+import cn.thinkmoon.blog.modules.pojo.po.PostPO;
+import cn.thinkmoon.blog.modules.pojo.po.TagPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

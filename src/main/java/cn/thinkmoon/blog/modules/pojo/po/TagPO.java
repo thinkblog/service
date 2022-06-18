@@ -1,4 +1,4 @@
-package cn.thinkmoon.blog.modules.pojo;
+package cn.thinkmoon.blog.modules.pojo.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

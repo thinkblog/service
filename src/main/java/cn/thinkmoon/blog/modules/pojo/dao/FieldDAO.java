@@ -1,6 +1,6 @@
-package cn.thinkmoon.blog.modules.dao;
+package cn.thinkmoon.blog.modules.pojo.dao;
 
-import cn.thinkmoon.blog.modules.pojo.FieldsPO;
+import cn.thinkmoon.blog.modules.pojo.po.FieldsPO;
 
 import java.util.List;
 

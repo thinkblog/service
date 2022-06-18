@@ -1,12 +1,12 @@
-package cn.thinkmoon.blog.modules.vo;
+package cn.thinkmoon.blog.modules.pojo.vo;
 
-import cn.thinkmoon.blog.modules.pojo.FieldsPO;
+import cn.thinkmoon.blog.modules.pojo.po.FieldsPO;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class PostVo {
+public class PostVO {
     private int cid;
 
     private String title;

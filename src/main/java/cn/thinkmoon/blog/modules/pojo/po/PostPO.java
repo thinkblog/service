@@ -1,4 +1,4 @@
-package cn.thinkmoon.blog.modules.pojo;
+package cn.thinkmoon.blog.modules.pojo.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -65,10 +65,6 @@ public class PostPO extends Model<PostPO> {
     private String desc;
 
     private List<FieldsPO> fields;
-
-    public PostPO() {
-
-    }
 
     public PostPO(long authorId, String title, String text, int category_id){
         this.authorId = authorId;

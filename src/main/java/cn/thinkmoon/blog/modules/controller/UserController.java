@@ -1,7 +1,7 @@
 package cn.thinkmoon.blog.modules.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import cn.thinkmoon.blog.modules.pojo.UserPO;
+import cn.thinkmoon.blog.modules.pojo.po.UserPO;
 import cn.thinkmoon.blog.utils.JWT;
 import cn.thinkmoon.blog.modules.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;

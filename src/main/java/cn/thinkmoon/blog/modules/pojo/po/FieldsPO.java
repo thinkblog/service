@@ -1,4 +1,4 @@
-package cn.thinkmoon.blog.modules.pojo;
+package cn.thinkmoon.blog.modules.pojo.po;
 
 import lombok.Data;
 
