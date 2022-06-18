@@ -3,7 +3,7 @@ package cn.thinkmoon.blog.config;
 import cn.thinkmoon.blog.core.enums.ResultEnum;
 import cn.thinkmoon.blog.core.except.CommonException;
 import cn.thinkmoon.blog.core.annotation.Permission;
-import cn.thinkmoon.blog.modules.content.pojo.po.UserPO;
+import cn.thinkmoon.blog.modules.pojo.UserPO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;

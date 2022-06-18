@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.thinkmoon.blog.modules.post.dao.PostDAO">
-    <resultMap id="IndexResultMap" type="cn.thinkmoon.blog.modules.post.pojo.PostPO">
+<mapper namespace="cn.thinkmoon.blog.modules.dao.PostDAO">
+    <resultMap id="IndexResultMap" type="cn.thinkmoon.blog.modules.pojo.PostPO">
         <id column="cid" property="cid"/>
         <result column="title" property="title"/>
         <result column="text" property="text"/>
@@ -12,14 +12,14 @@
         <result column="views" property="views"/>
         <result column="likes" property="likes"/>
         <result column="comments" property="comments"/>
-        <collection property="tag" ofType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO" column="cid"
+        <collection property="tag" ofType="cn.thinkmoon.blog.modules.pojo.TagPO" column="cid"
                     select="selectTag">
         </collection>
-        <collection property="fields" ofType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO" column="cid"
+        <collection property="fields" ofType="cn.thinkmoon.blog.modules.pojo.FieldsPO" column="cid"
                     select="selectFields">
         </collection>
     </resultMap>
-    <select id="selectTag" resultType="cn.thinkmoon.blog.modules.content.pojo.po.TagPO">
+    <select id="selectTag" resultType="cn.thinkmoon.blog.modules.pojo.TagPO">
         SELECT
         cid,
         weblog_relationships.tid,
@@ -31,7 +31,7 @@
         weblog_tag.tid = weblog_relationships.tid
         AND cid = #{cid}
     </select>
-    <select id="selectFields" resultType="cn.thinkmoon.blog.modules.post.pojo.FieldsPO">
+    <select id="selectFields" resultType="cn.thinkmoon.blog.modules.pojo.FieldsPO">
         SELECT
         name,value
         FROM
@@ -89,7 +89,7 @@
         AND weblog_contents.category_id = weblog_category.mid
         AND weblog_contents.cid = #{cid}
     </select>
-    <select id="getAboutPost" resultType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
+    <select id="getAboutPost" resultType="cn.thinkmoon.blog.modules.pojo.PostPO">
         SELECT
         weblog_contents.*
         FROM
@@ -97,12 +97,12 @@
         WHERE
         weblog_options.`name` = 'aboutCid' and weblog_options.`value` = weblog_contents.cid
     </select>
-    <insert id="insertPost" parameterType="cn.thinkmoon.blog.modules.post.pojo.PostPO" useGeneratedKeys="true" keyColumn="cid" keyProperty="cid">
+    <insert id="insertPost" parameterType="cn.thinkmoon.blog.modules.pojo.PostPO" useGeneratedKeys="true" keyColumn="cid" keyProperty="cid">
         INSERT INTO weblog_contents (authorId,title,text,category_id,created,modified)
         VALUES
         (#{authorId},#{title},#{text},#{category_id},#{created},#{modified})
     </insert>
-    <update id="updatePost" parameterType="cn.thinkmoon.blog.modules.post.pojo.PostPO">
+    <update id="updatePost" parameterType="cn.thinkmoon.blog.modules.pojo.PostPO">
         UPDATE weblog_contents
         <set>
             title = #{title},
