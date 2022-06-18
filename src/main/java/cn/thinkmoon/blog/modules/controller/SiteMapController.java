@@ -1,9 +1,6 @@
 package cn.thinkmoon.blog.modules.controller;
 
-import cn.thinkmoon.blog.modules.service.CategoryService;
-import cn.thinkmoon.blog.modules.service.PostService;
 import cn.thinkmoon.blog.modules.service.SiteMapService;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
