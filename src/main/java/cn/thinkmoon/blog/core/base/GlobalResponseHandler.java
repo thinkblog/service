@@ -27,23 +27,8 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(final Object body, final MethodParameter returnType, final MediaType selectedContentType,
-                                  final Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  final ServerHttpRequest request, ServerHttpResponse response) {
-        if (body == null || body instanceof ResponseResult) {
-            return body;
-        }
-        final ResponseResult responseResult = new ResponseResult(body);
-        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-        if (returnType.getGenericParameterType().equals(String.class)) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                return objectMapper.writeValueAsString(responseResult);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException("将 Response 对象序列化为 json 字符串时发生异常", e);
-            }
-        }
-        return responseResult;
+    public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        return body;
     }
 
     @ExceptionHandler(value = Exception.class)

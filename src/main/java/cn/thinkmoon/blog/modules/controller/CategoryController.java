@@ -1,5 +1,6 @@
 package cn.thinkmoon.blog.modules.controller;
 
+import cn.thinkmoon.blog.core.base.ResponseResult;
 import cn.thinkmoon.blog.modules.pojo.po.CategoryPO;
 import cn.thinkmoon.blog.modules.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping(value = "/list")
-    public List<CategoryPO> Index(@RequestParam(defaultValue = "") String name) {
-        return categoryService.queryList(name);
+    public ResponseResult Index(@RequestParam(defaultValue = "") String name) {
+        return new ResponseResult(categoryService.queryList(name));
     }
 }

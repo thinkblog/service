@@ -1,6 +1,7 @@
 package cn.thinkmoon.blog.modules.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import cn.thinkmoon.blog.core.base.ResponseResult;
 import cn.thinkmoon.blog.modules.pojo.po.UserPO;
 import cn.thinkmoon.blog.utils.JWT;
 import cn.thinkmoon.blog.modules.service.UserService;
@@ -26,15 +27,15 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/login")
-    public String Login(@RequestBody Map params) throws JsonProcessingException {
+    public ResponseResult Login(@RequestBody Map params) throws JsonProcessingException {
         String account = (String) params.get("account");
         String password = (String) params.get("password");
         UserPO user = userService.queryUserByAccount(account);
         BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), user.getPassword());
         if(result.verified){
             Map<String,Object> map = objectMapper.convertValue(user, new TypeReference<Map<String, Object>>() {});
-            return JWT.generateToken(user.getId().toString(),map);
+            return new ResponseResult(JWT.generateToken(user.getId().toString(),map));
         }
-        return "登录失败";
+        return new ResponseResult("登录失败");
     }
 }

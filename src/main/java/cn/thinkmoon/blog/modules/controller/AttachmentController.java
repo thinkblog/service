@@ -1,6 +1,7 @@
 package cn.thinkmoon.blog.modules.controller;
 
 import cn.thinkmoon.blog.core.annotation.Permission;
+import cn.thinkmoon.blog.core.base.ResponseResult;
 import cn.thinkmoon.blog.core.enums.PermissionTag;
 import cn.thinkmoon.blog.modules.service.AttachmentService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ public class AttachmentController {
 
     @Permission(permissionTag = PermissionTag.ADMIN)
     @GetMapping(value = "/upload_code")
-    public String getUploadCode(){
-        return attachmentService.generateUploadCode();
+    public ResponseResult getUploadCode(){
+        return new ResponseResult(attachmentService.generateUploadCode());
     }
 }

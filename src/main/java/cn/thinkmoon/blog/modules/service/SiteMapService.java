@@ -13,7 +13,7 @@ public class SiteMapService {
             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
 
     static String END_DOC = "</urlset>";
-    public static String BASE_URL = "https://www.thinkmoon.c/";
+    public static String BASE_URL = "https://www.thinkmoon.cn/";
 
     @Autowired
     private PostDAO postMapper;

@@ -1,5 +1,6 @@
 package cn.thinkmoon.blog.modules.service;
 
+import cn.thinkmoon.blog.core.base.ResponseResult;
 import cn.thinkmoon.blog.modules.pojo.dao.TagDAO;
 import cn.thinkmoon.blog.modules.pojo.dao.FieldDAO;
 import cn.thinkmoon.blog.modules.pojo.dao.PostDAO;
