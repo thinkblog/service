@@ -70,6 +70,16 @@
         ORDER BY
         created DESC
     </select>
+    <select id="findAll" resultType="cn.thinkmoon.blog.modules.pojo.po.PostPO">
+        SELECT
+        cid
+        FROM
+        weblog_contents
+        WHERE
+        weblog_contents.type = "post"
+        ORDER BY
+        cid DESC
+    </select>
     <select id="getDetail" resultMap="IndexResultMap">
         SELECT
         weblog_contents.cid,
@@ -97,7 +107,8 @@
         WHERE
         weblog_options.`name` = 'aboutCid' and weblog_options.`value` = weblog_contents.cid
     </select>
-    <insert id="insertPost" parameterType="cn.thinkmoon.blog.modules.pojo.po.PostPO" useGeneratedKeys="true" keyColumn="cid" keyProperty="cid">
+    <insert id="insertPost" parameterType="cn.thinkmoon.blog.modules.pojo.po.PostPO" useGeneratedKeys="true"
+            keyColumn="cid" keyProperty="cid">
         INSERT INTO weblog_contents (authorId,title,text,category_id,created,modified)
         VALUES
         (#{authorId},#{title},#{text},#{category_id},#{created},#{modified})

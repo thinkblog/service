@@ -1,6 +1,6 @@
-package cn.thinkmoon.blog.modules.pojo.po;
+package cn.thinkmoon.blog.modules.pojo.dto;
 
-public class SiteMapPO {
+public class SiteMapDTO {
     /**
      * url https://www.xxx.com
      */
@@ -15,7 +15,7 @@ public class SiteMapPO {
                 "</url>";
     }
 
-    public SiteMapPO(String loc) {
+    public SiteMapDTO(String loc) {
         this.loc=loc;
     }
 }

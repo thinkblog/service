@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author chauncey
@@ -66,7 +66,11 @@ public class PostPO extends Model<PostPO> {
 
     private List<FieldsPO> fields;
 
-    public PostPO(long authorId, String title, String text, int category_id){
+    public PostPO() {
+
+    }
+
+    public PostPO(long authorId, String title, String text, int category_id) {
         this.authorId = authorId;
         this.title = title;
         this.text = text;
@@ -74,7 +78,7 @@ public class PostPO extends Model<PostPO> {
         this.modified = this.created = (int) (System.currentTimeMillis() / 1000);
     }
 
-    public PostPO(int cid,int authorId, String title, String text, int category_id){
+    public PostPO(int cid, int authorId, String title, String text, int category_id) {
         this.cid = cid;
         this.authorId = authorId;
         this.title = title;

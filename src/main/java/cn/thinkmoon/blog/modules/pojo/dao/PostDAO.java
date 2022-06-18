@@ -26,6 +26,8 @@ public interface PostDAO extends BaseMapper<PostPO> {
 
     IPage<PostPO> selectPage(Page<?> page, String category, String keyword, List<PostPO> cidList);
 
+    List<PostPO> findAll();
+
     PostPO getDetail(String cid);
 
     PostPO getAboutPost();
