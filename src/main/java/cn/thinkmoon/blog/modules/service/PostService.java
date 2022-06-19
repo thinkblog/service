@@ -1,11 +1,12 @@
 package cn.thinkmoon.blog.modules.service;
 
-import cn.thinkmoon.blog.core.base.ResponseResult;
 import cn.thinkmoon.blog.modules.pojo.dao.TagDAO;
 import cn.thinkmoon.blog.modules.pojo.dao.FieldDAO;
 import cn.thinkmoon.blog.modules.pojo.dao.PostDAO;
 import cn.thinkmoon.blog.modules.pojo.po.FieldsPO;
 import cn.thinkmoon.blog.modules.pojo.po.PostPO;
+import cn.thinkmoon.blog.modules.pojo.po.UserPO;
+import cn.thinkmoon.blog.modules.pojo.vo.PostVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -50,22 +51,27 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
         return postMapper.getAboutPost();
     }
 
-    public int addPost(int authorId,String title,String text,int category_id,List<FieldsPO> fieldsPOList) {
-        PostPO post = new PostPO(authorId,title,text,category_id);
+    public int addPost(UserPO user,PostVO postVO) {
+        PostPO post = new PostPO(user.getId(),postVO);
         postMapper.insertPost(post);
         int cid = post.getCid();
-        fieldMapper.deleteField(cid);
-        fieldsPOList.forEach(item -> item.setCid(cid));
-        fieldMapper.addField(fieldsPOList);
+        updateMeta(cid,postVO);
         return cid;
     }
 
-    public int updatePost(int cid,int userId,String title,String text,int category_id,List<FieldsPO> fieldsPOList) {
-        PostPO post = new PostPO(cid,userId,title,text,category_id);
+    public int updatePost(UserPO user,PostVO postVO) {
+        PostPO post = new PostPO(user.getId(),postVO);
         postMapper.updatePost(post);
+        updateMeta(postVO.getCid(),postVO);
+        return postVO.getCid();
+    }
+
+    public void updateMeta(int cid,PostVO postVo){
+        // 处理自定义字段
         fieldMapper.deleteField(cid);
-        fieldsPOList.forEach(item -> item.setCid(cid));
-        fieldMapper.addField(fieldsPOList);
-        return cid;
+        fieldMapper.addField(cid,postVo.getFields());
+        // 处理标签
+        tagDAO.removeTagRelation(cid);
+        tagDAO.addTagRelation(cid,postVo.getSelectedTag());
     }
 }

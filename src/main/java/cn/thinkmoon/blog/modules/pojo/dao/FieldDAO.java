@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FieldDAO {
     boolean deleteField(int cid);
-    boolean addField(List<FieldsPO> fieldsPOList);
+    boolean addField(int cid,List<FieldsPO> fieldsPOList);
 }

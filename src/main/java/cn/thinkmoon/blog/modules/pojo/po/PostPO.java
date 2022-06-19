@@ -1,5 +1,6 @@
 package cn.thinkmoon.blog.modules.pojo.po;
 
+import cn.thinkmoon.blog.modules.pojo.vo.PostVO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -28,7 +29,7 @@ public class PostPO extends Model<PostPO> {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "cid", type = IdType.AUTO)
-    private int cid;
+    private Integer cid;
 
     private String title;
 
@@ -70,11 +71,11 @@ public class PostPO extends Model<PostPO> {
 
     }
 
-    public PostPO(long authorId, String title, String text, int category_id) {
+    public PostPO(long authorId, PostVO postVO) {
         this.authorId = authorId;
-        this.title = title;
-        this.text = text;
-        this.category_id = category_id;
+        this.title = postVO.getTitle();
+        this.text = postVO.getText();
+        this.category_id = postVO.getCategory_id();
         this.modified = this.created = (int) (System.currentTimeMillis() / 1000);
     }
 

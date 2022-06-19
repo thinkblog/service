@@ -5,7 +5,7 @@
         INSERT INTO weblog_fields (cid,name,value)
         VALUES
         <foreach collection ="fieldsPOList" item="field" separator =",">
-            (#{field.cid}, #{field.name}, #{field.value})
+            (#{cid}, #{field.name}, #{field.value})
         </foreach >
     </insert>
 

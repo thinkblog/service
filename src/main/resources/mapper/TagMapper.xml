@@ -9,6 +9,17 @@
         <result column="order" property="order"/>
         <result column="count" property="count"/>
     </resultMap>
+    <insert id="addTagRelation">
+        INSERT INTO weblog_relationships (cid,tid)
+        VALUES
+        <foreach collection="tagList" item="tagId" separator =",">
+            (#{cid}, #{tagId})
+        </foreach >
+    </insert>
+    <delete id="removeTagRelation">
+        DELETE FROM weblog_relationships
+        WHERE cid=#{cid};
+    </delete>
     <select id="queryList" resultMap="BaseResultMap">
         SELECT
         *

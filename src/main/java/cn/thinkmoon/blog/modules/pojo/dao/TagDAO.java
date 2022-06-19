@@ -11,4 +11,9 @@ public interface TagDAO extends BaseMapper<TagPO> {
     List<TagPO> queryList(String name);
 
     List<PostPO> getPostList(String tagName);
+
+    void removeTagRelation(int cid);
+
+    void addTagRelation(int cid, List<Integer> tagList);
+
 }

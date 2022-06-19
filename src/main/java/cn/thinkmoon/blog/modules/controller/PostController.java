@@ -41,7 +41,7 @@ public class PostController {
     public ResponseResult addPost(
             @RequestBody PostVO postVo,
             @RequestAttribute("user_info") UserPO user) {
-        return new ResponseResult(postService.addPost((Integer) user.getId(), postVo.getTitle(), postVo.getText(), postVo.getCategory_id(), postVo.getCustomOptions()));
+        return new ResponseResult(postService.addPost(user,postVo));
     }
 
     @Permission(permissionTag = PermissionTag.ADMIN)
@@ -49,7 +49,7 @@ public class PostController {
     public ResponseResult updatePost(
             @RequestBody PostVO postVo,
             @RequestAttribute("user_info") UserPO user) {
-        return new ResponseResult(postService.updatePost(postVo.getCid(),user.getId(), postVo.getTitle(), postVo.getText(), postVo.getCategory_id(),postVo.getCustomOptions()));
+        return new ResponseResult(postService.updatePost(user,postVo));
     }
 
     @RequestMapping(value = "/{cid}")

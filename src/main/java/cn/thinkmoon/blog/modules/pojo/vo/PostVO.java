@@ -15,5 +15,7 @@ public class PostVO {
 
     private int category_id;
 
-    private List<FieldsPO> customOptions;
+    private List<FieldsPO> fields;
+
+    private List<Integer> selectedTag;
 }
