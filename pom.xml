@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.thinkmoon</groupId>
     <artifactId>blog</artifactId>
-    <version>0.0.4</version>
+    <version>0.1.0</version>
     <name>springBlog</name>
     <description>Blog project for Spring Boot</description>
     <properties>
