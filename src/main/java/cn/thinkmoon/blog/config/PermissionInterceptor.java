@@ -33,20 +33,12 @@ public class PermissionInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request,
                              @NotNull HttpServletResponse response,
                              @NotNull Object handler) throws Exception {
-        log.info("进入拦截器" + request.getServletPath());
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         // 获取访问的处理方法上的注解
         Permission annotation = handlerMethod.getMethodAnnotation(Permission.class);
-
-        // 如果需要权限标签
-        if (annotation != null) {
-            // TODO: 此处以后还需要判断对应的权限标签在用户的权限范围内
-            // 通过拦截器获取到token数据
-            String token = request.getHeader("authorization");
-            // 没有token则抛出无身份异常
-            if (!StringUtils.hasLength(token)) {
-                throw new CommonException(ResultEnum.UNAUTHENTICATED);
-            }
+        // 通过拦截器获取到token数据
+        String token = request.getHeader("authorization");
+        if (StringUtils.hasLength(token)) {
             Claims claims;
             try {
                 claims = JWT.parseToken(token);
@@ -71,6 +63,15 @@ public class PermissionInterceptor implements HandlerInterceptor {
                 response.addCookie(cookie);
             };
             request.setAttribute("user_info", mapper.convertValue(claims, UserPO.class));
+        }
+
+        // 如果需要权限标签
+        if (annotation != null) {
+            // TODO: 此处以后还需要判断对应的权限标签在用户的权限范围内
+            // 没有token则抛出无身份异常
+            if (!StringUtils.hasLength(token)) {
+                throw new CommonException(ResultEnum.UNAUTHENTICATED);
+            }
         }
         return true;
     }
