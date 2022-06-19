@@ -12,9 +12,9 @@
     <insert id="addTagRelation">
         INSERT INTO weblog_relationships (cid,tid)
         VALUES
-        <foreach collection="tagList" item="tagId" separator =",">
+        <foreach collection="tagList" item="tagId" separator=",">
             (#{cid}, #{tagId})
-        </foreach >
+        </foreach>
     </insert>
     <delete id="removeTagRelation">
         DELETE FROM weblog_relationships
