@@ -6,6 +6,7 @@ public class SiteMapDTO {
      */
     private final String loc;
 
+    public static String BASE_URL = "https://www.thinkmoon.cn";
 
     @Override
     /* 重写 toString 适应xml格式 */
@@ -16,6 +17,6 @@ public class SiteMapDTO {
     }
 
     public SiteMapDTO(String loc) {
-        this.loc=loc;
+        this.loc = BASE_URL + loc;
     }
 }
