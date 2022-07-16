@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
@@ -24,6 +26,8 @@ import java.util.List;
 @TableName("weblog_contents")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class PostPO extends Model<PostPO> {
 
     private static final long serialVersionUID = 1L;
@@ -66,27 +70,6 @@ public class PostPO extends Model<PostPO> {
     private String desc;
 
     private List<FieldsPO> fields;
-
-    public PostPO() {
-
-    }
-
-    public PostPO(long authorId, PostVO postVO) {
-        this.authorId = authorId;
-        this.title = postVO.getTitle();
-        this.text = postVO.getText();
-        this.category_id = postVO.getCategory_id();
-        this.modified = this.created = (int) (System.currentTimeMillis() / 1000);
-    }
-
-    public PostPO(int cid, int authorId, String title, String text, int category_id) {
-        this.cid = cid;
-        this.authorId = authorId;
-        this.title = title;
-        this.text = text;
-        this.category_id = category_id;
-        this.modified = (int) (System.currentTimeMillis() / 1000);
-    }
 
     @Override
     protected Serializable pkVal() {

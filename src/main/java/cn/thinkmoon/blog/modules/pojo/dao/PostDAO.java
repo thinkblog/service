@@ -6,6 +6,7 @@ import cn.thinkmoon.blog.modules.pojo.po.TagPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,9 +32,8 @@ public interface PostDAO extends BaseMapper<PostPO> {
     PostPO getDetail(String cid);
 
     PostPO getAboutPost();
+    boolean insertPost(@Param("post") PostPO post);
 
-    boolean insertPost(PostPO post);
-
-    boolean updatePost(PostPO post);
+    boolean updatePost(@Param("post") PostPO post);
 
 }

@@ -111,19 +111,19 @@
             keyColumn="cid" keyProperty="cid">
         INSERT INTO weblog_contents (authorId,title,text,category_id,created,modified)
         VALUES
-        (#{authorId},#{title},#{text},#{category_id},#{created},#{modified})
+        (#{post.authorId},#{post.title},#{post.text},#{post.category_id},#{post.created},#{post.modified})
     </insert>
     <update id="updatePost" parameterType="cn.thinkmoon.blog.modules.pojo.po.PostPO">
         UPDATE weblog_contents
         <set>
-            title = #{title},
-            text = #{text},
-            <if test="category_id != null">
-                category_id = #{category_id},
+            title = #{post.title},
+            text = #{post.text},
+            <if test="post.category_id != null">
+                category_id = #{post.category_id},
             </if>
-            modified = #{modified},
+            modified = #{post.modified},
         </set>
         WHERE
-        weblog_contents.cid = #{cid}
+        weblog_contents.cid = #{post.cid}
     </update>
 </mapper>
