@@ -92,8 +92,7 @@
         FROM
         ( article, category )
         WHERE
-        article.type = "post"
-        AND article.categoryId = category.mid
+        article.categoryId = category.mid
         AND article.cid = #{cid}
     </select>
     <select id="getAboutPost" resultType="cn.thinkmoon.blog.modules.pojo.po.PostPO">
