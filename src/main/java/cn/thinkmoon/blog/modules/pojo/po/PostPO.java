@@ -63,7 +63,7 @@ public class PostPO extends Model<PostPO> {
 
     private String category;
 
-    private int category_id;
+    private int categoryId;
 
     private String thumb;
 

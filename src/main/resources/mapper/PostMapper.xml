@@ -6,7 +6,7 @@
         <result column="title" property="title"/>
         <result column="text" property="text"/>
         <result column="category" property="category"/>
-        <result column="category_id" property="category_id"/>
+        <result column="categoryId" property="categoryId"/>
         <result column="created" property="created"/>
         <result column="modified" property="modified"/>
         <result column="views" property="views"/>
@@ -22,47 +22,46 @@
     <select id="selectTag" resultType="cn.thinkmoon.blog.modules.pojo.po.TagPO">
         SELECT
         cid,
-        weblog_relationships.tid,
+        relationship_tag.tid,
         `name`
         FROM
-        `weblog_relationships`,
-        `weblog_tag`
+        `relationship_tag`,
+        `tag`
         WHERE
-        weblog_tag.tid = weblog_relationships.tid
+        tag.tid = relationship_tag.tid
         AND cid = #{cid}
     </select>
     <select id="selectFields" resultType="cn.thinkmoon.blog.modules.pojo.po.FieldsPO">
         SELECT
         name,value
         FROM
-        weblog_fields
+        article_field
         WHERE
         cid = #{cid}
     </select>
     <select id="selectPage" resultMap="IndexResultMap">
         SELECT
-        weblog_contents.cid,
+        article.cid,
         title,
         created,
         modified,
         views,
         likes,
         comments,
-        weblog_category.mid AS category_id,
-        weblog_category.`name` AS 'category'
+        category.mid AS categoryId,
+        category.`name` AS 'category'
         FROM
-        ( weblog_contents, weblog_category )
+        ( article, category )
         WHERE
-        weblog_contents.type = "post"
-        AND weblog_contents.category_id = weblog_category.mid
+        article.categoryId = category.mid
         <if test='keyword != ""'>
-            AND ( weblog_contents.title LIKE #{keyword} OR weblog_contents.text LIKE #{keyword})
+            AND ( article.title LIKE #{keyword} OR article.text LIKE #{keyword})
         </if>
         <if test='category != ""'>
-            AND weblog_category.`name` = #{category}
+            AND category.`name` = #{category}
         </if>
         <if test="cidList != null and cidList.size() > 0">
-            AND weblog_contents.cid IN
+            AND article.cid IN
             <foreach collection="cidList" item="item" index="index" open="(" close=")" separator=",">
                 #{item.cid}
             </foreach>
@@ -74,15 +73,13 @@
         SELECT
         cid
         FROM
-        weblog_contents
-        WHERE
-        weblog_contents.type = "post"
+        article
         ORDER BY
         cid DESC
     </select>
     <select id="getDetail" resultMap="IndexResultMap">
         SELECT
-        weblog_contents.cid,
+        article.cid,
         title,
         text,
         created,
@@ -90,40 +87,40 @@
         views,
         likes,
         comments,
-        weblog_category.mid AS category_id,
-        weblog_category.`name` AS 'category'
+        category.mid AS categoryId,
+        category.`name` AS 'category'
         FROM
-        ( weblog_contents, weblog_category )
+        ( article, category )
         WHERE
-        weblog_contents.type = "post"
-        AND weblog_contents.category_id = weblog_category.mid
-        AND weblog_contents.cid = #{cid}
+        article.type = "post"
+        AND article.categoryId = category.mid
+        AND article.cid = #{cid}
     </select>
     <select id="getAboutPost" resultType="cn.thinkmoon.blog.modules.pojo.po.PostPO">
         SELECT
-        weblog_contents.*
+        article.*
         FROM
-        weblog_options,weblog_contents
+        weblog_options,article
         WHERE
-        weblog_options.`name` = 'aboutCid' and weblog_options.`value` = weblog_contents.cid
+        weblog_options.`name` = 'aboutCid' and weblog_options.`value` = article.cid
     </select>
     <insert id="insertPost" parameterType="cn.thinkmoon.blog.modules.pojo.po.PostPO" useGeneratedKeys="true"
             keyColumn="cid" keyProperty="cid">
-        INSERT INTO weblog_contents (authorId,title,text,category_id,created,modified)
+        INSERT INTO article (authorId,title,text,categoryId,created,modified)
         VALUES
-        (#{post.authorId},#{post.title},#{post.text},#{post.category_id},#{post.created},#{post.modified})
+        (#{post.authorId},#{post.title},#{post.text},#{post.categoryId},#{post.created},#{post.modified})
     </insert>
     <update id="updatePost" parameterType="cn.thinkmoon.blog.modules.pojo.po.PostPO">
-        UPDATE weblog_contents
+        UPDATE article
         <set>
             title = #{post.title},
             text = #{post.text},
-            <if test="post.category_id != null">
-                category_id = #{post.category_id},
+            <if test="post.categoryId != null">
+                categoryId = #{post.categoryId},
             </if>
             modified = #{post.modified},
         </set>
         WHERE
-        weblog_contents.cid = #{post.cid}
+        article.cid = #{post.cid}
     </update>
 </mapper>

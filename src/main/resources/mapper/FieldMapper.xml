@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.thinkmoon.blog.modules.pojo.dao.FieldDAO">
     <insert id="addField">
-        INSERT INTO weblog_fields (cid,name,value)
+        INSERT INTO article_field (cid,name,value)
         VALUES
         <foreach collection ="fieldsPOList" item="field" separator =",">
             (#{cid}, #{field.name}, #{field.value})
@@ -10,7 +10,7 @@
     </insert>
 
     <delete id="deleteField">
-        DELETE FROM weblog_fields
+        DELETE FROM article_field
         WHERE cid=#{cid};
     </delete>
 </mapper>

@@ -60,7 +60,7 @@ public class PostService extends ServiceImpl<PostDAO, PostPO> {
                 .setAuthorId(user.getId())
                 .setTitle(postVO.getTitle())
                 .setText(postVO.getText())
-                .setCategory_id(postVO.getCategory_id())
+                .setCategoryId(postVO.getCategoryId())
                 .setCreated(nowTime)
                 .setModified(nowTime);
         postMapper.insertPost(post);

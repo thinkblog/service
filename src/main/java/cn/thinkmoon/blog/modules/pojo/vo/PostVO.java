@@ -13,7 +13,7 @@ public class PostVO {
 
     private String text;
 
-    private int category_id;
+    private int categoryId;
 
     private List<FieldsPO> fields;
 

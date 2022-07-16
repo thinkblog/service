@@ -10,21 +10,21 @@
         <result column="count" property="count"/>
     </resultMap>
     <insert id="addTagRelation">
-        INSERT INTO weblog_relationships (cid,tid)
+        INSERT INTO relationship_tag (cid,tid)
         VALUES
         <foreach collection="tagList" item="tagId" separator=",">
             (#{cid}, #{tagId})
         </foreach>
     </insert>
     <delete id="removeTagRelation">
-        DELETE FROM weblog_relationships
+        DELETE FROM relationship_tag
         WHERE cid=#{cid};
     </delete>
     <select id="queryList" resultMap="BaseResultMap">
         SELECT
         *
         FROM
-        weblog_tag
+        tag
         <if test='name != ""'>
             WHERE name = #{name}
         </if>
@@ -35,10 +35,10 @@
         SELECT
         cid
         FROM
-        `weblog_relationships`,
-        `weblog_tag`
+        `relationship_tag`,
+        `tag`
         WHERE
-        weblog_tag.tid = weblog_relationships.tid
-        AND weblog_tag.name = #{tagName}
+        tag.tid = relationship_tag.tid
+        AND tag.name = #{tagName}
     </select>
 </mapper>

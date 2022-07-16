@@ -5,8 +5,8 @@
         SELECT
         *
         FROM
-        weblog_user
+        user
         WHERE
-        weblog_user.`account` = #{account}
+        user.`account` = #{account}
     </select>
 </mapper>
