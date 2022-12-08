@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="cn.thinkmoon.blog.modules.pojo.po.TagPO">
         <id column="tid" property="tid"/>
         <result column="name" property="name"/>
-        <result column="order" property="order"/>
         <result column="count" property="count"/>
     </resultMap>
     <insert id="addTagRelation">
@@ -28,8 +27,6 @@
         <if test='name != ""'>
             WHERE name = #{name}
         </if>
-        ORDER BY
-        `order`
     </select>
     <select id="getPostList" resultType="cn.thinkmoon.blog.modules.pojo.po.PostPO">
         SELECT
